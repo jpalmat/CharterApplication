@@ -14,6 +14,6 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     public List<Customer> getAllTransaction(){
-        return customerRepository.getAllTransaction();
+        return (List<Customer>) customerRepository.findAll();
     }
 }

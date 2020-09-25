@@ -1,28 +1,31 @@
 package com.chapter.application.jimmyapp.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Customer {
-    private int id;
+    @Id
+    @GeneratedValue
+    private Integer id;
     private String name;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Transactions> transactions = new ArrayList<>();
 
     public Customer() {
     }
 
-    public Customer(int id, String name, List<Transactions> transactions) {
-        this.id = id;
+    public Customer(String name) {
         this.name = name;
-        this.transactions = transactions;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
