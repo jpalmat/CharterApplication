@@ -35,16 +35,8 @@ public class JimmyappApplication implements CommandLineRunner {
 		transactions1.setCustomer(customer1);
 		transactionRepository.save(transactions1);
 
-//		customerRepository.save(new Customer("Javier", Arrays.asList(
-//				new Transactions[]{
-//						new Transactions(90, 120, LocalDate.parse("2018-09-16")),
-//						new Transactions(90, 120, LocalDate.parse("2018-09-16"))
-//				})));
+		Transactions transactions2 = new Transactions(90, 120, LocalDate.parse("2018-09-16"));
+		transactions2.setCustomer(customer1);
+		transactionRepository.save(transactions2);
 	}
-	/**
-	 * new Transactions[]{
-	 *                                     new Transactions(90, 120, LocalDate.parse("2018-09-16")),
-	 *                                     new Transactions(90, 120, LocalDate.parse("2018-09-16"))
-	 *                             }))
-	 */
 }
