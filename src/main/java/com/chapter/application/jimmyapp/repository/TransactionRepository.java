@@ -6,9 +6,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 public interface TransactionRepository extends CrudRepository<Transactions, Integer> {
-    @Query("select t.transactionDate, SUM(t.point) from Transactions t where t.customer.id=:customerId group by t.transactionDate")
-//@Query("select SUM(t.point) from Transactions t where t.customer.id=:customerId")
-    public Object findByMonth(@Param("customerId") int customerId);
+    @Query("select t.transactionDate as date, SUM(t.point) as points from Transactions t where t.customer.id=:customerId group by t.transactionDate")
+    public Map<String, Object> findByMonth(@Param("customerId") int customerId);
 }
