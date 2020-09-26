@@ -1,4 +1,4 @@
-package com.chapter.application.jimmyapp.model;
+package com.chapter.application.jimmyapp.model.response;
 
 public class TransactionResponse {
     private String name;

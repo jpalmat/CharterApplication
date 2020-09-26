@@ -1,8 +1,8 @@
 package com.chapter.application.jimmyapp.controller;
 
 import com.chapter.application.jimmyapp.model.Customer;
-import com.chapter.application.jimmyapp.model.TransactionResponse;
-import com.chapter.application.jimmyapp.model.Transactions;
+import com.chapter.application.jimmyapp.model.response.CustomerResponse;
+import com.chapter.application.jimmyapp.model.response.TransactionResponse;
 import com.chapter.application.jimmyapp.service.CustomerService;
 import com.chapter.application.jimmyapp.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,16 +32,31 @@ public class CustomerController {
         return customerService.getAllTransaction();
     }
 
-    @RequestMapping("/{customerId}")
-    public TransactionResponse getPointPerMotnh(@PathVariable("customerId") int customerId){
-        Map<String, Object> transactionCustomer = transactionService.findByMonth(customerId);
-        LocalDate date = (LocalDate) transactionCustomer.get("date");
-        TransactionResponse response = new TransactionResponse(date.getMonth().name(), transactionCustomer.get("points"));
+    @RequestMapping("/getPointPerMotnh/{customerId}")
+    public CustomerResponse getPointPerMotnh(@PathVariable("customerId") int customerId){
+        Customer customer = customerService.getCustomerById(customerId);
+
+        CustomerResponse responseC = new CustomerResponse(customer.getName(), getTransactions(transactionService.findByMonth(customerId)));
+
+
+        return responseC;
+    }
+
+    private List<TransactionResponse> getTransactions(List<Map<String, Object>> byMonth) {
+        List<TransactionResponse> list = new ArrayList<>();
+        for (Map<String, Object> map: byMonth) {
+            LocalDate date = (LocalDate) map.get("date");
+            list.add(new TransactionResponse(date.getMonth().name(), map.get("points")));
+        }
+
+        return list;
+    }
+
+    @RequestMapping("/getPointTotal/{customerId}")
+    public TransactionResponse getPointTotal(@PathVariable("customerId") int customerId){
+        Integer transactionCustomer = transactionService.findTotal(customerId);
+        TransactionResponse response = new TransactionResponse("total", transactionCustomer);
 
         return response;
     }
-}
-
-class PointPerMonth{
-
 }
