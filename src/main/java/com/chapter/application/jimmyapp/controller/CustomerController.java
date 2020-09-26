@@ -38,7 +38,6 @@ public class CustomerController {
 
         CustomerResponse responseC = new CustomerResponse(customer.getName(), getTransactions(transactionService.findByMonth(customerId)));
 
-
         return responseC;
     }
 
@@ -53,10 +52,15 @@ public class CustomerController {
     }
 
     @RequestMapping("/getPointTotal/{customerId}")
-    public TransactionResponse getPointTotal(@PathVariable("customerId") int customerId){
-        Integer transactionCustomer = transactionService.findTotal(customerId);
-        TransactionResponse response = new TransactionResponse("total", transactionCustomer);
+    public CustomerResponse getPointTotal(@PathVariable("customerId") int customerId){
+        List<TransactionResponse> list = new ArrayList<>();
 
-        return response;
+        Customer customer = customerService.getCustomerById(customerId);
+        Integer transactionCustomer = transactionService.findTotal(customerId);
+        list.add(new TransactionResponse("total", transactionCustomer));
+
+        CustomerResponse responseC = new CustomerResponse(customer.getName(), list);
+
+        return responseC;
     }
 }
