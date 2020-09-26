@@ -1,5 +1,14 @@
 package com.chapter.application.jimmyapp.model.response;
 
+/**
+ * <h1>TransactionResponse</h1>
+ *  * Response class for the services
+ *  * * <p>
+ *  *
+ *  * @author Jimmy Palma
+ *  * @version 1.0
+ *  * @since   09-25-2020
+ */
 public class TransactionResponse {
     private String name;
     private Object points;
