@@ -1,0 +1,8 @@
+This project uses H2 database. 
+The class JimmyappApplication implements CommandLineRunner to load the sample data into the Database.
+Use this link http://localhost:8080/h2-console/ to access to the H2 console and see the tables y data.
+
+Rest services
+
+http://localhost:8080/customer/transactions/getPointPerMotnh/{customerId}
+http://localhost:8080/customer/transactions/getPointTotal/{customerId}
